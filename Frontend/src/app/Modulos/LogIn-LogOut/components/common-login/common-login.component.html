@@ -1,0 +1,66 @@
+<div class="container">
+  <mat-button-toggle-group
+    name="option"
+    aria-label="LogIn / SingUp"
+    (change)="selectAction($event.value)"
+    value="signIn"  >
+    <mat-button-toggle value="signIn" >Ingresar</mat-button-toggle>
+    <mat-button-toggle value="signUp" >Registrarse</mat-button-toggle>
+  </mat-button-toggle-group>
+  <mat-vertical-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="emailFormGroup">
+      <form [formGroup]="emailFormGroup">
+        <ng-template matStepLabel>Ingrese su correo electronico</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Email" formControlName="emailControl" required/>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="passwordFormGroup">
+      <form [formGroup]="passwordFormGroup">
+        <ng-template matStepLabel>Ingrese su contraseña</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Contraseña" formControlName="passwordControl" type="password" required/>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext *ngIf="!isLogin">Siguiente</button>
+          <button mat-button matStepperPrevious>Regresar</button>
+          <button mat-raised-button color="primary" *ngIf="isLogin && passwordFormGroup.valid" (click)="login()">Ingresar</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step *ngIf="!isLogin" [stepControl]="clientFormGroup">
+      <form [formGroup]="clientFormGroup" class="form-data">
+        <ng-template matStepLabel>Llene el formulario con sus datos personales</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Nombre" formControlName="nombreControl" type="text" required/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Apellido" formControlName="apellidoControl" type="text" required/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Celular - Teléfono" formControlName="telefonoControl" type="number"/>
+        </mat-form-field>
+        Domicilio:
+        <mat-form-field>
+          <input matInput placeholder="Calle" formControlName="calleControl" type="text"/>          
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="numero" formControlName="numeroControl" type="text"/>          
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Localidad" formControlName="localidadControl" type="text"/>          
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary" *ngIf="clientFormGroup.valid" (click)="singUp()"> Registrarse</button>
+          <button mat-button matStepperPrevious>Regresar</button>
+          <button mat-button (click)="stepper.reset()">Reiniciar formulario</button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-vertical-stepper>
+  <button mat-raised-button (click)="regresar()">Cerrar</button>  
+</div>

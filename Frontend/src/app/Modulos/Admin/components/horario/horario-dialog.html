@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Horario atencion {{ data.dia }}</h1>
+<div mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <input matInput placeholder="Apertura HH:MM" formControlName="apertura" />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Cierre HH:MM" formControlName="cierre" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-button
+    (click)="onConfirmClick()"
+    *ngIf="form.valid"
+    cdkFocusInitial
+  >
+    Guardar
+  </button>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+</div>

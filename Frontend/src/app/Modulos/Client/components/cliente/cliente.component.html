@@ -1,0 +1,87 @@
+<div>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Datos personales
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ cliente ? cliente.email : "--" }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <form [formGroup]="clientFormGroup">
+      <div class="name-container">
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Nombre"
+            formControlName="nombreControl"
+            type="text"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Apellido"
+            formControlName="apellidoControl"
+            type="text"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Celular"
+            formControlName="telefonoControl"
+            type="number"
+          />
+        </mat-form-field>
+      </div>
+      Domicilio:
+      <div class="adress-container">
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Calle"
+            formControlName="calleControl"
+            type="text"
+          />
+          
+        </mat-form-field>
+
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Numero"
+            formControlName="numeroControl"
+            type="text"
+          />
+          
+        </mat-form-field>
+        <div class="localidad">
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Localidad"
+              formControlName="localidadControl"
+              type="text"
+            />
+            
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="btn-container">
+        <button
+          mat-button
+          *ngIf="clientFormGroup.valid"
+          (click)="onSaveClick()"
+        >
+          Guardar
+        </button>
+      </div>
+    </form>
+  </mat-expansion-panel>
+</div>

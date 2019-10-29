@@ -1,0 +1,31 @@
+
+
+<div class="container">
+  <mat-card>
+  <mat-list class="container">
+    <mat-list-item *ngFor="let dia of horarioSermanal">
+      <div class="horario">
+        <div>
+          <span
+            ><strong>{{ daysOfWeek[dia.nrodia] }}</strong></span
+          >
+        </div>
+        <div>
+          <span> De: {{ dia.apertura }} A {{ dia.cierre }}</span>
+        </div>
+        <div>
+          <mat-icon
+            style="cursor: pointer"
+            (click)="
+              openEditDialog(dia._id, dia.nrodia, dia.apertura, dia.cierre)
+            "
+            >edit</mat-icon
+          >
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+</mat-card>
+</div>
+

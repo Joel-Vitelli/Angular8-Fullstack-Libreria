@@ -1,0 +1,13 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  mat-vertical-stepper {
+    width: 100%;
+    max-width: 600px;
+  }
+  mat-form-field {
+    width: 100%;
+    max-width: 400px;
+  }
+}

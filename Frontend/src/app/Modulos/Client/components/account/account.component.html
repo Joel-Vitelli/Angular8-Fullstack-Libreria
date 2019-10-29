@@ -1,0 +1,128 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span style="cursor: pointer" [routerLink]="['/globalHome']">Librería</span>
+    <span *ngIf="user">
+      <mat-icon
+        matTooltip="Cerrar Sesion"
+        aria-label="Logout"
+        (click)="logOut()"
+        style="cursor: pointer"
+        >logout
+      </mat-icon>
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container">
+  <div class="client-data" *ngIf="user">
+    <app-cliente *ngIf="cliente" [cliente]="cliente"></app-cliente>
+  </div>
+  <div>
+    <div class="title">
+      Sus pedidos del dia de hoy      
+    </div>
+  </div>
+  <div class="pedidos-container">
+    <div class="pedidos" *ngFor="let pedido of fromToday">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Pedido N° : {{ pedido.numero }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+        
+          <p>
+              Producto listo a las: 
+            {{ pedido.horaEstimadaFin | date: "shortTime" }}
+          </p>
+        
+          <p>Estado de su Pedido: {{ estadoPedido[pedido.estado] }}</p>
+          <p>Forma de entrega : {{ tipoRetiro[pedido.tipoEnvio] }}</p><br><br>
+          <strong>Detalle de su pedido</strong>
+          <div
+            class="list-item detail-item"
+            *ngFor="let detalle of pedido.detalles"
+          >
+            <p class="description">
+              {{ detalle.cantidad }} X
+              {{
+                detalle.onModel === "articulo"
+                  ? detalle.articulo.denominacion
+                  : detalle.articulo.nombre
+              }}
+            </p>
+            <p class="description">${{ detalle.subtotal | number: ".2" }}</p>
+          </div>
+          <div *ngIf="pedido.tipoEnvio === 0" class="list-item detail-item">
+           
+          </div>
+          <div class="list-item detail-item">
+            <p class="description total">
+              <strong>Total</strong>
+            </p>
+            <p class="description total">
+              <strong>
+                ${{                  
+                    getTotal(pedido.detalles)                    
+                }}
+              </strong>
+            </p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="olds">
+    <div class="title">
+      Todos sus pedidos
+    </div>
+    <div class="all">
+      <div class="pedidos" *ngFor="let p of getOlds()">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Pedido Nro : {{ p.numero }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+             
+            <p>
+              Producto listo a las: 
+              {{ p.horaEstimadaFin | date: "shortTime" }}
+            </p>
+            
+            <p>Estado de su pedido: {{ estadoPedido[p.estado] }}</p>
+            <p>Forma de entrega: {{ tipoRetiro[p.tipoEnvio] }}</p><br><br>
+            <strong>Detalle de su pedido</strong>
+            <div
+              class="list-item detail-item"
+              *ngFor="let detalle of p.detalles"
+            >
+              <p class="description">
+                {{ detalle.cantidad }} X
+                {{
+                  detalle.onModel === "articulo"
+                    ? detalle.articulo.denominacion
+                    : detalle.articulo.nombre
+                }}
+              </p>
+              <p class="description">${{ detalle.subtotal | number: ".2" }}</p>
+            </div>
+            <div *ngIf="p.tipoEnvio === 0" class="list-item detail-item">              
+            </div>
+            <div class="list-item detail-item">
+              <p class="description total">
+                <strong>Total</strong>
+              </p>
+              <p class="description total">
+                <strong>
+                  ${{                    
+                      getTotal(p.detalles)                      
+                  }}
+                </strong>
+              </p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

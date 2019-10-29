@@ -1,0 +1,80 @@
+.container {
+  width: 100%;
+}
+
+.art-field-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.coockTime-price-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  mat-form-field {
+    width: 48%;
+    max-width: 300px;
+    min-width: 100px;
+  }
+}
+
+.name-container {
+  display: flex;
+  justify-content: center;
+  mat-form-field {
+    width: 90%;
+    min-width: 150px;
+  }
+}
+
+.title {
+  display: flex;
+  font-weight: bold;
+  font-size: 14px;
+  justify-content: flex-start;
+}
+.group-detail-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.amount {
+  width: 20%;
+  min-width: 40px;
+  mat-form-field {
+    width: 100%;
+  }
+}
+.name-art {
+  width: 79%;
+  min-width: 40px;
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.add-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.list-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  mat-list-item {
+    width: 90%;
+    mat-icon {
+      font-size: 13px;
+    }
+  }
+}
+.btn-save {
+  display: flex;
+  justify-content: center;
+}

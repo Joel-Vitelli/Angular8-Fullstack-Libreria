@@ -1,0 +1,118 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 5px;
+}
+.dates {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.table-container {
+  width: 95%;
+
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  overflow: auto;
+}
+table {
+  width: 100%;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: #777;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.element-description {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  background-color: #0000000d;
+}
+
+.element-description-attribution {
+  opacity: 0.5;
+}
+
+.mat-elevation-z8 {
+  overflow: auto;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.btn {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+}
+
+.group-data {
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  flex-direction: column;
+}
+
+.pedido-group {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  font-size: 14px;
+  padding: 10px;
+  background-color: #e0e0e075;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.group-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.group-pedido-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.export-to-excel {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}

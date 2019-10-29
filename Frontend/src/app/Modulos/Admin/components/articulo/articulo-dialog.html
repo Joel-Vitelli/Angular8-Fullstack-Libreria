@@ -1,0 +1,79 @@
+
+<h1 mat-dialog-title>
+  {{ art._id ? "Actualizar Articulo" : "Cargar Articulo" }}
+</h1>
+<div mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <input matInput placeholder="Nombre" formControlName="denominacion" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      type="number"
+      placeholder="Precio de Compra"
+      formControlName="precioCompra"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      type="number"
+      placeholder="Precio de Venta"
+      formControlName="precioVenta"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      type="number"
+      placeholder="Stock"
+      formControlName="stockActual"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      type="text"
+      placeholder="Unidad de medida"
+      formControlName="unidadMedidad"
+    />
+  </mat-form-field>
+
+  <mat-checkbox class="example-margin" formControlName="checkbox"
+    >¿Exclusivo Oferta?</mat-checkbox
+  >
+
+  <mat-form-field>
+    <input
+      type="text"
+      placeholder="Rubro"
+      aria-label="text"
+      matInput
+      [formControl]="rubroControl"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let option of filteredOptions | async"
+        [value]="option.denominacion"
+      >
+        {{ option.denominacion }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-button
+    (click)="onConfirmClick()"
+    *ngIf="form.valid && checkRubro()"
+    cdkFocusInitial
+  >
+    Guardar
+  </button>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+</div>

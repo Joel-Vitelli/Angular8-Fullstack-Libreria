@@ -1,0 +1,28 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.name-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  mat-form-field {
+    width: 48%;
+    min-width: 200px;
+  }
+}
+.adress-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  mat-form-field {
+    width: 160px;
+  }
+}
+
+.btn-container {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}

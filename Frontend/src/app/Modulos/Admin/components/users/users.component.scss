@@ -1,0 +1,19 @@
+.container {
+  width: 90%;
+  display: flex;
+
+  justify-content: center;
+  align-self: center;
+}
+
+.fields {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-checkbox {
+  padding: 3px;
+}

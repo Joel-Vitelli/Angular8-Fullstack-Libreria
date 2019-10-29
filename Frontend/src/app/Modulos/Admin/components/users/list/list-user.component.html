@@ -1,0 +1,10 @@
+<div class="container">
+  <mat-accordion>
+    <app-users *ngFor="let user of usersList" [user]="user"> </app-users>
+  </mat-accordion>
+</div>
+<div class="new-user-container">
+  <mat-accordion>
+    <app-users> </app-users>
+  </mat-accordion>
+</div> 

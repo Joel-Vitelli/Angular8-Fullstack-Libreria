@@ -1,0 +1,21 @@
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: auto;
+  max-height: 550px;
+  mat-vertical-stepper {
+    width: 100%;
+    max-width: 700px;
+  }
+  mat-form-field {
+    width: 100%;
+    max-width: 700px;
+    min-width: 100px;
+  }
+}
+.form-data {
+  overflow: auto;
+}

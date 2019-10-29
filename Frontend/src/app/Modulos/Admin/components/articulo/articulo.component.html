@@ -1,0 +1,92 @@
+<mat-card>
+<div class="container">
+  <div class="filter-container">
+    <mat-form-field>
+      <input
+        matInput
+        (keyup)="applyFilter($event.target.value)"
+        placeholder="Buscar articulo"
+      />
+    </mat-form-field>
+  </div>
+  <div class="add-btn">
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      Agregar Articulo
+    </button>
+  </div>
+</div>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <!-- Denominacion Column -->
+    <ng-container matColumnDef="denominacion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre de Articulo</th>
+      <td mat-cell *matCellDef="let element">{{ element.denominacion }}</td>
+    </ng-container>
+
+    <!-- Precio Compra Column -->
+    <ng-container matColumnDef="precioCompra">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Compra</th>
+      <td mat-cell *matCellDef="let element">
+        ${{ element.precioCompra | number: "0.2" }}
+      </td>
+    </ng-container>
+
+    <!-- Precio Venta Column -->
+    <ng-container matColumnDef="precioVenta">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Venta</th>
+      <td mat-cell *matCellDef="let element">
+        ${{ element.precioVenta | number: "0.2" }}
+      </td>
+    </ng-container>
+
+    <!-- Stock Actual Column -->
+    <ng-container matColumnDef="stockActual">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Stock</th>
+      <td mat-cell *matCellDef="let element">{{ element.stockActual }}</td>
+    </ng-container>
+
+    <!-- unidadMedidad Actual Column -->
+    <ng-container matColumnDef="unidadMedidad">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>U.Medida</th>
+      <td mat-cell *matCellDef="let element">{{ element.unidadMedidad }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="esInsumo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Oferta</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.esInsumo ? "Si" : "No" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="rubro">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Rubro</th>
+      <td mat-cell *matCellDef="let element">{{ element.rubro }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon style="cursor: pointer" (click)="deleteArticulo(element)"
+          >delete</mat-icon
+        >
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      (dblclick)="openDialog(row)"
+    ></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+<!--
+<div class="export-to-excel">
+  <button mat-raised-button color="primary" (click)="exportToExcel()">
+    Exportar
+  </button>
+</div>
+-->
+</mat-card>

@@ -1,0 +1,140 @@
+<app-navbar-home></app-navbar-home>
+
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">       
+      <mat-card class="example-card">
+          
+          <mat-card-header>            
+            <mat-icon aria-hidden="false" aria-label="shopping_cart" class="centrar">shopping_cart</mat-icon>
+            <mat-card-title class="centrar">Su pedido</mat-card-title>
+            <mat-card-subtitle class="centrar">Librería</mat-card-subtitle>
+          </mat-card-header>      
+          <mat-card-content>
+      <div class="">        
+        <div class="list">
+          <!-- Cabecera -->
+          <div class="list-item">
+            <p class="product-header">Artículo</p>
+            <p class="amount-header">Monto</p>
+          </div>
+          <mat-divider></mat-divider>    
+          <!-- Detalles -->
+          <div class="list-item detail-item" *ngFor="let det of listDetallePedido; let i = index">
+            <p class="description">
+              <mat-icon class="cancel-icon quitItem" (click)="deleteDetallePedido(i)">remove_shopping_cart</mat-icon>
+              {{ det.cantidad }} X {{ det.onModel === "articulo" ? det.articulo.denominacion: det.articulo.nombre }}
+            </p>
+            <p class="description">
+              {{ det.subtotal | number: ".2" }}
+            </p>
+          </div>    
+          <!-- Retiro en local -->
+          <!--
+          <div *ngIf="toAdressCheck" class="list-item">
+            <p class="description">
+              Desc. retiro en local
+            </p>
+            <p class="description">
+              ${{ (totalPedido * 10) / 100 | number: "0.2" }}
+            </p>
+          </div> 
+          -->   
+          <!-- Precio total -->
+          <div class="list-item">
+            <p class="description-total">
+              <strong> Total </strong>
+            </p>
+            <p class="description-total">
+              ${{ totalPedido  }}
+            </p>
+          </div>
+        </div>
+        <div class="discount">
+          <!--
+          <mat-checkbox [(ngModel)]="toAdressCheck">
+            ¿Retirar en el local? (-10% de descuento) 
+          </mat-checkbox>
+          -->
+        </div>
+        <div class="btn-finish">
+          <button mat-raised-button *ngIf="user" (click)="doPedido()">
+            Realizar Pedido
+          </button>
+          <button mat-button disabled *ngIf="!user">
+            Debes ingresar para hacer un pedido
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="buttonCenter" >
+      <button mat-button (click)="drawer.toggle()">Cerrar</button>      
+    </mat-card-actions>
+    </mat-card>
+    </mat-drawer>  
+    <div class="example-sidenav-content">
+      <button type="button" mat-button (click)="drawer.toggle()">
+        Ver pedido
+      </button>
+      <div class="general-container">
+          <div class="select-articulos">
+            <div class="container">
+              <form [formGroup]="form">
+                <mat-form-field>
+                  <input matInput placeholder="Escriba el nombre de un producto a buscar" formControlName="filterControl"/>
+                </mat-form-field>
+              </form>
+            </div>        
+            <!-- Ofertas -->
+            <div class="nuestArticulosVenta">Lista de Ofertas a la venta</div>          
+            <mat-grid-list cols="3" rowHeight="400px" gutterSize="1px">
+            <div class="products" *ngIf="filteredOferta | async as ofertas"> 
+                <mat-grid-tile  *ngFor="let oferta of ofertas let i = index">
+                  <div class="">
+                <mat-card class="cardCol responsive">
+                  <div class="oferTitle"> {{ oferta.nombre }}</div>
+                  <p class="card-description" *ngIf="oferta.detalle">
+                    <mat-list>
+                      <mat-list-item class="listIngredient" *ngFor="let detalle of oferta.detalle">
+                        <span class="listIngredient">
+                          {{ detalle.cantidad }} 
+                          {{ detalle.articulo.unidadMedidad }}
+                        </span>&nbsp;de&nbsp;
+                        <span class="listIngredient">
+                          {{ (detalle.articulo.denominacion.length>30)? (detalle.articulo.denominacion | slice:0:30)+'..':(detalle.articulo.denominacion) }}
+                        </span>
+                      </mat-list-item>
+                    </mat-list>
+                  </p>
+                  <p class="card-price">Precio: {{ oferta.precio }}</p>
+                  <button mat-raised-button color="primary" (click)="addToPedido(oferta, 'articulooferta')">
+                    Agregar al pedido
+                  </button>
+                </mat-card>
+              </div>
+              </mat-grid-tile>                       
+            </div>  
+          </mat-grid-list>          
+                  
+            <!-- Articulos Individuales -->
+            <div class="nuestArticulosVenta">Articulos Individuales</div>
+            <mat-grid-list cols="4" rowHeight="200px" gutterSize="1px">
+            <div class="products" *ngIf="filteredArt | async as articulos">
+              <mat-grid-tile *ngFor="let art of articulos">
+              <div class="card" >
+                <mat-card class="cardColItems responsive">
+                  <div class="articleTitle">{{ (art.denominacion.length>30)? (art.denominacion | slice:0:30)+'..':(art.denominacion) }}</div>
+                  <p class="card-description"></p>
+                  <p class="card-price">Precio: {{ art.precioVenta }}</p>
+                  <button mat-raised-button color="primary" (click)="addToPedido(art, 'articulo')">
+                    Agregar al pedido
+                  </button>
+                </mat-card>
+              </div>
+            </mat-grid-tile>
+            </div>
+          </mat-grid-list>
+          </div>       
+        </div>
+    </div>  
+  </mat-drawer-container>
+

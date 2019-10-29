@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Librería</span>
+    <span *ngIf="user"> Bienvenido/a {{ user.displayName }} </span>
+    <span>
+      <span class="user-account-icon">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <mat-icon *ngIf="user" [routerLink]="'/account'" matTooltip="Perfil">account_box</mat-icon>
+      </span>
+      <span *ngIf="user">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <mat-icon matTooltip="Cerrar Sesion" aria-label="Logout" (click)="logOut()" style="cursor: pointer">logout</mat-icon>
+      </span>     
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>

@@ -1,0 +1,46 @@
+
+
+  <mat-card class="center"> <h1 *ngIf="listPedido.length === 0">Aún no hay ningún pedido que requiera ser facturado</h1></mat-card>
+  <mat-grid-list cols="4" rowHeight="400px" gutterSize="1px">
+      <mat-grid-tile *ngFor="let pedido of listPedido">  
+    <mat-card>
+      <div class="title center">Numero: {{ pedido.numero }}</div><br>
+      <mat-card-content>
+        <div class="descripcion">
+          <span
+            >Hora del pedido : {{ pedido.fecha | date: "dd/MM/yy, hh:mm " }}</span
+          >
+          <!--
+          <span>Forma de Retiro {{ tipoRetiro[pedido.tipoEnvio] }}</span>
+          <span
+            >Hora estimada: {{ pedido.horaEstimadaFin | date: "hh:mm" }}</span
+          >
+          -->
+          <div class="details">
+            <div class="spacer" *ngFor="let d of pedido.detalles">
+              <div class="detalleStyle">
+                {{ d.cantidad }} X
+                {{
+                  d.onModel === "articulo"
+                    ? d.articulo.denominacion
+                    : d.articulo.nombre
+                }}
+              </div>
+              <div>${{ d.subtotal }}</div>
+            </div>
+            <div *ngIf="pedido.tipoEnvio === 0" class="spacer">
+              
+            </div>
+            <div *ngIf="pedido.tipoEnvio === 0" class="spacer">
+              <div class="negrita">Total</div>
+              <div>${{ getTotal(pedido.detalles) | number: "0.2" }}</div>
+            </div>
+          </div><br>
+          <button mat-raised-button color="primary" (click)="createFacturaFromPedido(pedido)"> Crear Comprobante</button>
+        </div>
+      </mat-card-content>
+    </mat-card>  
+</mat-grid-tile> 
+</mat-grid-list>
+ 
+

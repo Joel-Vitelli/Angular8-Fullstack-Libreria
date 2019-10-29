@@ -1,0 +1,78 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #c5cae973;
+}
+
+.pedidos-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.pedidos {
+  width: 90%;
+  max-width: 400px;
+  padding: 10px;
+}
+
+.detail-item {
+  height: 36px;
+}
+
+.list-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 15px;
+  padding: 4px;
+}
+.cancel-icon {
+  font-size: 15px;
+  cursor: pointer;
+}
+.description {
+  display: flex;
+}
+
+.total {
+  font-size: 17px;
+}
+
+.olds {
+  padding-top: 20px;
+}
+.all {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  padding-top: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.client-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 10px;
+}
+
+.mat-toolbar-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

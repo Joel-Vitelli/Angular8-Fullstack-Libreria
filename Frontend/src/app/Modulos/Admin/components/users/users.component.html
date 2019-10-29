@@ -1,0 +1,35 @@
+<div class="container">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{
+          user && user.name.lengt !== 0
+            ? user.name + " - " + user.email
+            : "Añade uno nuevo aquí"
+        }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="fields">
+      <form [formGroup]="form">
+        <mat-form-field>
+          <input matInput placeholder="nombre" formControlName="name" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Email" formControlName="email" />
+        </mat-form-field>
+      </form>
+      <div>
+        <mat-checkbox [(ngModel)]="checkedAdmin">Admin</mat-checkbox>        
+      </div>
+      <div>
+        <button mat-button *ngIf="form.valid" (click)="onSaveClick()">
+          Guardar
+        </button>
+        <button mat-button *ngIf="id.length > 0" (click)="onDeleteClick()">
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</div>

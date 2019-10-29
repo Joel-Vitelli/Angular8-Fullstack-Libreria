@@ -1,0 +1,38 @@
+
+<div class="container">
+  <mat-card>
+  <div class="field">
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        maxlength="30"
+        placeholder="Nombre del Rubro"
+        [(ngModel)]="denomination"
+      />
+      <button
+        mat-button
+        *ngIf="denomination"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="addRubro()"
+      >
+        <mat-icon>save</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-list>
+      <mat-list-item *ngFor="let rubro of rubros">
+        <div class="item">
+          <span>{{ rubro.denominacion }}</span>
+          <span style="cursor: pointer;"
+            ><mat-icon (click)="deleteRubro(rubro._id)">cancel</mat-icon></span
+          >
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</mat-card>
+</div>

@@ -1,0 +1,108 @@
+<div>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ !artOfertaRef ? "Agregar Nuevo" : "Editar" }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div [formGroup]="form" class="art-field-container">
+      <div class="name-container">
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Nombre producto"
+            formControlName="nombre"
+          />
+        </mat-form-field>
+      </div>
+      <div class="coockTime-price-container">
+        <mat-form-field>
+          <input
+            matInput
+            type="number"
+            placeholder="Precio"
+            formControlName="precio"
+          />
+        </mat-form-field>
+
+        <mat-form-field>
+          <input
+            matInput
+            type="number"
+            placeholder="Tiempo Confección (Minutos)"
+            formControlName="tiempoDeCoccion"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div [formGroup]="groupDetalle" class="group-detail-form">
+      <div class="title">Agregar detalles de la Oferta  </div>
+      <div class="add-details">
+        <div class="amount">
+          <mat-form-field>
+            <input
+              matInput
+              type="number"
+              placeholder="Cantidad"
+              formControlName="cantidadCtrl"
+            />
+          </mat-form-field>
+        </div>
+        <div class="name-art">
+          <mat-form-field>
+            <input
+              type="text"
+              placeholder="Articulo"
+              aria-label="text"
+              matInput
+              [formControl]="artCtrl"
+              [matAutocomplete]="auto"
+            />
+
+            <mat-autocomplete
+              #auto="matAutocomplete"
+              [displayWith]="displayFn.bind(this)"
+            >
+              <mat-option
+                *ngFor="let option of filteredArt | async"
+                [value]="option"
+              >
+                {{ option.denominacion }} - Costo &nbsp; {{ option.precioCompra | currency }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <button
+          mat-raised-button
+          *ngIf="groupDetalle.valid && checkValueAutocomplete()"
+          (click)="addDetalleToList()"
+        >
+          Agregar articulo
+        </button>
+      </div>
+    </div>
+
+    <div class="list-details">
+      <mat-list-item *ngFor="let detalle of detalleArticulos">
+        <span>{{ detalle.cantidad }} {{ detalle.articulo.unidadMedidad }}</span>
+        <span>
+          {{ detalle.articulo.denominacion }}
+        </span>
+        <span>
+          <mat-icon style="cursor: pointer" (click)="deleteDetalle(detalle.articulo._id)">cancel</mat-icon>
+        </span>
+      </mat-list-item>
+    </div>
+
+    <div class="btn-save">
+      <button
+        mat-button
+        *ngIf="form.valid && detalleArticulos.length > 0"
+        (click)="onSaveClick()"
+      >
+        Guardar
+      </button>
+    </div>
+  </mat-expansion-panel>
+</div>

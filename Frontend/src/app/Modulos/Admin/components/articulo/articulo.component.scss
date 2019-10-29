@@ -1,0 +1,33 @@
+table {
+  width: 100%;
+}
+
+.mat-elevation-z8 {
+  overflow: auto;
+}
+
+.add-btn {
+  align-self: center;
+}
+.container {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-container {
+  width: 50%;
+  max-width: 300px;
+  min-width: 150px;
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.export-to-excel {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+

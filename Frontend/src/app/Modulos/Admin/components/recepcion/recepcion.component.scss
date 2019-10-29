@@ -1,0 +1,43 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.pedidos {
+  width: 200px;
+}
+mat-card {
+  padding: 3px;
+}
+
+.descripcion {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+mat-raised-button{
+  background-color: greenyellow;
+}
+.center{
+  margin: 0 auto;
+  justify-content: center;
+  text-align: center;
+}
+
+.toobar-spacer {
+  flex: 1 1 auto;
+}
+
+.negrita{
+  font-weight: bold;
+}
+
+.detalleStyle{
+  color: green;
+}

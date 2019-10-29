@@ -1,0 +1,30 @@
+<div class="container">
+  <mat-card>
+  <mat-list>
+    <mat-list-item>
+      <div class="item">
+        <span>Articulo</span>
+        <span class="description">
+          <span class="cant"> Vendidos </span>
+          <span class="cant"> Precio </span>
+        </span>
+      </div>
+    </mat-list-item>
+    <mat-list-item *ngFor="let art of totalSales">
+      <div class="item">
+        <span>{{ art.articulo }}</span>
+        <span class="description">
+          <span class="cant"> {{ art.cantidad }} </span>
+          <span class="cant"> ${{ art.precio | number: ".2" }} </span>
+        </span>
+      </div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+</mat-card>
+</div>
+<!--
+<div class="export-to-excel">
+  <button mat-raised-button color="primary" (click)="exportToExcel()">Exportar</button>
+</div>
+-->

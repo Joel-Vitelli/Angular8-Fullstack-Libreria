@@ -1,0 +1,12 @@
+<h4>Cantidad</h4>
+<form [formGroup]="form">
+  <mat-form-field>
+    <input matInput type="number" formControlName="cantidadControl" name="cantidaddialog"/>
+  </mat-form-field>
+</form>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button [disabled]="!form.valid" (click)="onAddClick()">
+    Agregar
+  </button>
+</div>

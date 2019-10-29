@@ -1,0 +1,31 @@
+
+
+  <mat-card class="center"> <h1 *ngIf="listPedido.length === 0">No hay pedidos en espera de aprobación</h1> </mat-card>
+  <mat-grid-list cols="4" rowHeight="500px" gutterSize="1px">
+    <mat-grid-tile *ngFor="let pedido of listPedido; let i = index">
+    <div class="pedidos" >
+      <mat-card class="center"> 
+        <div class="title">Numero: {{ pedido.numero }}</div><br>
+        <mat-card-content class="center">
+          <div class="descripcion">
+            <span>Hora del pedido : {{ pedido.fecha | date: "dd/MM/yy, hh:mm " }}</span><br>
+            <span>Forma de Retiro : {{ tipoRetiro[pedido.tipoEnvio] }}</span><br>            
+            <div class="details">
+              <div class="detalleStyle" *ngFor="let d of pedido.detalles">
+                {{ d.cantidad }} X
+                {{
+                  d.onModel === "articulo"
+                    ? d.articulo.denominacion
+                    : d.articulo.nombre
+                }}
+              </div>              
+            </div>
+            <br><button mat-raised-button color="primary" (click)="updatePedido(pedido)">Terminado</button>          
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-grid-tile> 
+</mat-grid-list>
+
+

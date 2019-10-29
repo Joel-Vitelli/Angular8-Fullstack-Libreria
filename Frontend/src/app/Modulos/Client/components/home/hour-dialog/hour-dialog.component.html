@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>
+  Termina tu pedido<br />
+  Hora de retiro
+</h1>
+<div mat-dialog-content [formGroup]="form">
+  El local abre: {{ displayOpenTime }} <br />
+  El local cierra: {{ displayCloseTime }} <br />
+  <mat-form-field>
+    <input matInput placeholder="Hora retiro HH:MM" formControlName="horario" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-button
+    (click)="onConfirmClick()"
+    *ngIf="form.valid"
+    cdkFocusInitial
+  >
+    Guardar
+  </button>
+  <button mat-button mat-dialog-close>Cancelar</button>
+</div>

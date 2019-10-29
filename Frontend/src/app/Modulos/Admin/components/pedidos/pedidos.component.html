@@ -1,0 +1,187 @@
+<div class="container">
+  <mat-card>
+  <div class="dates">
+    <div>
+      <mat-form-field class="date-width">
+        <input
+          matInput
+          [matDatepicker]="pickerDesde"
+          placeholder="Fecha desde"
+          [(ngModel)]="initDate"
+          disabled
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="pickerDesde"
+        ></mat-datepicker-toggle>
+        <mat-datepicker touchUi #pickerDesde disabled="false"></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="date-width">
+        <input
+          matInput
+          [matDatepicker]="pickerHasta"
+          placeholder="Fecha Hasta"
+          [(ngModel)]="endDate"
+          disabled
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="pickerHasta"
+        ></mat-datepicker-toggle>
+        <mat-datepicker touchUi #pickerHasta disabled="false"></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="btn">
+      <mat-slide-toggle
+        (toggleChange)="grouping = !grouping"
+        [checked]="grouping"
+      >
+         Agrupado por cliente
+      </mat-slide-toggle>
+      <button mat-button (click)="getPedidos()">Buscar</button>
+    </div>
+  </div>
+  <div class="table-container mat-elevation-z8" *ngIf="!grouping">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      multiTemplateDataRows
+      class="mat-elevation-z8"
+      matSort
+    >
+      <!-- columnsToDisplay = ["numero", "fecha", "total"]; -->
+      <ng-container matColumnDef="numero">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Número</th>
+        <td mat-cell *matCellDef="let element">{{ element.numero }}</td>
+      </ng-container>
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.fecha | date: "short" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+        <td mat-cell *matCellDef="let element">
+          {{ estadoPedido[element.estado] }}
+        </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="horaEstimadaFin">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Hora Estimada</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.horaEstimadaFin | date: "shortTime" }}
+        </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="tipoEnvio">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Retiro</th>
+        <td mat-cell *matCellDef="let element">
+          {{ tipoRetiro[element.tipoEnvio] }}
+        </td>
+      </ng-container>
+
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [attr.colspan]="columnsToDisplay.length"
+        >
+          <div
+            class="element-detail"
+            [@detailExpand]="
+              element == expandedElement ? 'expanded' : 'collapsed'
+            "
+          >
+            <div class="element-description">
+              <div class="details">
+                <mat-list-item
+                  role="listitem"
+                  *ngFor="let detalle of element.detalles"
+                >
+                  <span> {{ detalle.cantidad }} x </span>
+                  <span *ngIf="detalle.onModel == 'articulo'">{{detalle.articulo.denominacion}}</span>
+                  <span *ngIf="detalle.onModel != 'articulo'">{{detalle.articulo.nombre}}</span>                  
+                </mat-list-item>
+              </div>
+              <div class="details">
+                <span
+                  >Cliente:
+                  {{ element.cliente.nombre + " " + element.cliente.apellido }}
+                </span>
+                <span>Email: {{ element.cliente.email }}</span>
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: columnsToDisplay"
+        class="element-row"
+        [class.expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="detail-row"
+      ></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+
+  <div *ngIf="grouping" class="group-data">
+    <mat-expansion-panel *ngFor="let arr of ListGruopByCliente">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ arr[0].cliente.nombre + " " + arr[0].cliente.apellido }}
+          <br />
+          {{
+            arr[0].cliente.domicilio.calle +
+              " - " +
+              arr[0].cliente.domicilio.numero +
+              " - " +
+              arr[0].cliente.domicilio.localidad
+          }}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{ arr[0].cliente.email }} - tel: {{ arr[0].cliente.telefono }} <br />
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="pedido-group" *ngFor="let p of arr">
+        <div class="group-pedido-detail">
+          <span>Numero: {{ p.numero }}</span>
+          <span>Fecha:{{ p.fecha | date: "short" }}</span>
+          <span>Estado: {{ estadoPedido[p.estado] }}</span>          
+          <!--
+          <span>Hora Aprox: {{ p.horaEstimadaFin | date: "short" }}</span>
+          <span>Entrega: {{ tipoRetiro[p.tipoEnvio] }}</span>
+          -->
+        </div>
+        <div class="group-details">
+          <span *ngFor="let detalle of p.detalles"
+            >{{ detalle.cantidad }} x
+            {{
+              detalle.onModel === "articulo"
+                ? detalle.articulo.denominacion
+                : detalle.articulo.nombre
+            }}
+          </span>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </div>
+</mat-card>
+</div>
+<!--
+<div class="export-to-excel">
+  <button mat-raised-button color="primary" (click)="exportToExcel()">Exportar</button>
+</div>
+-->
